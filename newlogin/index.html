@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="google-signin-client_id"
+        content="1099347311477-2ar604ud753kjkkoco25b31uqbr4rt8g.apps.googleusercontent.com">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="log.css" >
+        <title>Login Using Google</title>
+</head>
+
+<body>
+    <style>
+        *{ box-sizing: border-box; }
+        html, body{ margin: 0; 
+        padding: 0; 
+        background: rgb(253, 255, 254);}
+        .container{
+            margin: 10px 50px;
+
+        }
+        .form-group{
+            margin: 10px; 
+            padding-left: 10px;
+        }
+        .signupsec{
+            margin-left: 100px;
+            border: 3px solid black; 
+            background:rgb(219, 247, 169);
+            padding-left: 20px;
+        }
+       
+        button{
+            width: 200px;
+            padding: 15px;
+            margin-left: 250px;
+            background: #fff;
+            color: rgb(73, 75, 77);
+            border:  1px dodgerblue;
+            cursor: pointer;
+            transition:  all .38s ease-in-out;
+            border-radius: 50px;
+        }
+        button:hover{
+            background: rgb(23, 24, 24);
+            color: #fff;
+        }
+        table tr td{
+            
+            padding: 10px;
+        }
+        table{
+          margin-left: 100px;
+        }
+
+    </style>
+</head>
+<body>
+  
+    <div class="container">
+        <div class="signupsec" id="form1" style="display: none;">
+        <h2>ADDRESS FORM</h2>
+        <form role="form" onsubmit="signUp(event);">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="textinput">Line 1</label>
+                <div class="col-sm-10">
+                  <input type="text" id="al1" placeholder="Address Line 1" class="form-control" required>
+                </div>
+              </div>
+    
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="textinput">Line 2</label>
+                <div class="col-sm-10">
+                  <input type="text" id="al2" placeholder="Address Line 2" class="form-control" required>
+                </div>
+              </div>
+    
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="textinput">City</label>
+                <div class="col-sm-10">
+                  <input type="text" id="city" placeholder="City" class="form-control" required> 
+                </div>
+              </div>
+    
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="textinput">State</label>
+                <div class="col-sm-4">
+                  <input type="text" id="state" placeholder="State" class="form-control" required>
+                </div>
+    
+                <label class="col-sm-2 control-label" for="textinput">Postcode</label>
+                <div class="col-sm-4">
+                  <input type="text" id="pc" placeholder="Post Code" class="form-control" required>
+                </div>
+              </div>
+    
+    
+    
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-sm-2 control-label" for="textinput">Country</label>
+                <div class="col-sm-10">
+                  <input type="text" id="country" placeholder="Country" class="form-control" required>
+                </div>
+              </div>
+    
+            <div class="form-group">
+                <button type="submit">Save</button>
+            </div>
+        </form>
+        </div>
+        <h2 style="margin-left: 100px;" ></h2>
+        <div id="output">    
+        </div>
+    </div>
+
+   
+    <h2 class="alert alert-secondary" id="nav"> Sign In with Google </h2>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <div class="data">
+        <button type="button" class="btn btn-danger" onclick="signOut();" id="out">Sign Out</button>
+    </div>
+    <script src="log.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</body>
+<script type="text/javascript">
+    const signUp = e => {
+        let formData = { 
+            al1: document.getElementById('al1').value,
+            al2: document.getElementById('al2').value,
+            city: document.getElementById('city').value,
+            pc: document.getElementById('pc').value,
+            country: document.getElementById('country').value
+        }
+        
+         localStorage.setItem('formData', JSON.stringify(formData));
+          dispData();
+        e.preventDefault();
+    }
+    function dispData(){
+        //console.log(JSON.parse(localStorage.getItem('formData')));
+        let{al1,al2,city,pc}=JSON.parse(localStorage.getItem('formData'));
+        var output=document.getElementById("output");
+                output.innerHTML += `
+                        <table style="background: rgb(219, 247, 169)">
+                            <tbody>
+                            <tr>
+                            <td>al1</td>
+                            <td>${al1}</td>
+                            </tr>
+                            <tr>
+                            <td>al2</td>
+                            <td>${al2}</td>
+                            </tr>
+                            <tr>
+                            <td>city</td>
+                            <td>${city}</td>
+                            </tr>
+                            <tr>
+                            <td>pc</td>
+                            <td>${pc}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                `;
+                }
+   
+</script>
+</html>
